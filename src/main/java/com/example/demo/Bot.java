@@ -11,9 +11,11 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 public class Bot extends TelegramLongPollingBot {
 
     private final PropertyProvider propertyProvider;
+    private final Processor processor;
 
-    public Bot(PropertyProvider propertyProvider) {
+    public Bot(PropertyProvider propertyProvider, Processor processor) {
         this.propertyProvider = propertyProvider;
+        this.processor = processor;
     }
 
     @Override
@@ -27,7 +29,6 @@ public class Bot extends TelegramLongPollingBot {
 //            }
 //            sendMsg(update, "Как дела, любимый?");
 //        }
-        sendMsg(update, "Спишь?");
     }
 
     private void sendMsg(Update update, String text) {
