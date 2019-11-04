@@ -23,6 +23,10 @@ public class ProcessorImpl implements Processor {
         String text = update.getMessage().getText();
         if (text.equalsIgnoreCase("Привет")) {
             return sendMsg(update, "Привет " + update.getMessage().getFrom().getFirstName());
+        } else if (text.equalsIgnoreCase("Как дела?")) {
+            return sendMsg(update, "Хорошо, а у тебя как?");
+        } else if (text.equalsIgnoreCase("Нормально")) {
+            return sendMsg(update, "Понятно, чем занимаешься?");
         } else {
             return sendMsg(update, "Что такое " + text + "?");
         }
