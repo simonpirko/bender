@@ -25,7 +25,7 @@ public class Bot extends TelegramLongPollingBot {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            sendMsg(update, "Лена: Как дела, любимый?");
+            sendMsg(update, "Аня: Как дела, любимый?");
         }
     }
 
