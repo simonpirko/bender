@@ -19,13 +19,13 @@ public class Bot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage()) {
-            sendMsg(update, "Лена: Привет " + update.getMessage().getFrom().getFirstName());
+            sendMsg(update, "Привет " + update.getMessage().getFrom().getFirstName());
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            sendMsg(update, "Аня: Как дела, любимый?");
+            sendMsg(update, "Как дела, любимый?");
         }
     }
 
