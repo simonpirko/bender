@@ -51,8 +51,4 @@ public class Bot extends TelegramLongPollingBot {
     public String getBotToken() {
         return propertyProvider.getToken();
     }
-
-    private static class God {
-
-    }
 }
