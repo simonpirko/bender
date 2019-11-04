@@ -1,12 +1,38 @@
 package com.example.demo;
 
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
 public class ProcessorImpl implements Processor {
 
+    private SendMessage sendMsg(Update update, String text) {
+        Message message = update.getMessage();
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.enableMarkdown(true);
+        sendMessage.setChatId(message.getChatId().toString());
+        sendMessage.setText(text);
+        return sendMessage;
+    }
+
+
     @Override
-    public String getMessage(String msg) {
-        return null;
+    public SendMessage getMessage(Update update) {
+        String text = update.getMessage().getText();
+        if (text.equalsIgnoreCase("Привет")) {
+            return sendMsg(update, "Привет " + update.getMessage().getFrom().getFirstName());
+        } else {
+            return sendMsg(update, "Что такое " + text + "?");
+        }
+    }
+
+    private String startMsg() {
+        return "Привет:) Как твое имя?";
+    }
+
+    private String defaultQ(String msg) {
+        return "Что такое " + msg + "?";
     }
 }

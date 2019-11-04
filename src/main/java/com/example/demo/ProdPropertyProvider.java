@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Profile;
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "bender")
 @Data
-public class PropertyProvider {
+public class ProdPropertyProvider {
     private String token;
     private String name;
 }

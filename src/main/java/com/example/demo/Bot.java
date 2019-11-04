@@ -2,55 +2,39 @@ package com.example.demo;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Component
 public class Bot extends TelegramLongPollingBot {
 
-    private final PropertyProvider propertyProvider;
+    private final ProdPropertyProvider prodPropertyProvider;
     private final Processor processor;
 
-    public Bot(PropertyProvider propertyProvider, Processor processor) {
-        this.propertyProvider = propertyProvider;
+    public Bot(ProdPropertyProvider prodPropertyProvider, Processor processor) {
+        this.prodPropertyProvider = prodPropertyProvider;
         this.processor = processor;
     }
 
     @Override
     public void onUpdateReceived(Update update) {
-//        if (update.hasMessage()) {
-//            sendMsg(update, "Привет " + update.getMessage().getFrom().getFirstName());
-//            try {
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            sendMsg(update, "Как дела, любимый?");
-//        }
-    }
-
-    private void sendMsg(Update update, String text) {
-        Message message = update.getMessage();
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.enableMarkdown(true);
-        sendMessage.setChatId(message.getChatId().toString());
-        sendMessage.setText(text);
         try {
-            execute(sendMessage);
-        } catch (TelegramApiException e) {
+            Thread.sleep(1000);
+            execute(processor.getMessage(update));
+        } catch (InterruptedException | TelegramApiException e) {
             e.printStackTrace();
         }
+        System.out.println(update.getMessage().getFrom().getUserName() + " " + update.getMessage().getText());
     }
+
 
     @Override
     public String getBotUsername() {
-        return propertyProvider.getName();
+        return prodPropertyProvider.getName();
     }
 
     @Override
     public String getBotToken() {
-        return propertyProvider.getToken();
+        return prodPropertyProvider.getToken();
     }
 }
