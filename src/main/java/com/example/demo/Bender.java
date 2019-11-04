@@ -2,6 +2,8 @@ package com.example.demo;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -17,7 +19,10 @@ public class Bender extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
-        System.out.println(message.getText());
+        SendMessage sendMessage = new SendMessage();
+        Chat chat = message.getChat();
+        sendMessage.setChatId(message.getChatId().toString());
+        sendMessage.setText(chat.getUserName());
     }
 
     @Override
